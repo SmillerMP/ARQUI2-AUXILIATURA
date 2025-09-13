@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS sensores;
+USE sensores;
+
+CREATE TABLE dht11_lecturas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    temperatura DECIMAL(5,2) NOT NULL,
+    humedad DECIMAL(5,2) NOT NULL
+);
