@@ -1,6 +1,7 @@
 import time
 import threading
 import board
+import json
 import adafruit_dht
 from paho.mqtt.client import Client, CallbackAPIVersion
 
@@ -33,7 +34,7 @@ def lecturaDHT():
             hum = dhtDevice.humidity
             if temp is not None and hum is not None:
                 payload = {"temp": temp, "hum": hum}
-                client.publish(TOPIC_DHT, str(payload), retain=True)
+                client.publish(TOPIC_DHT, json.dumps(payload), retain=True)
                 print(f"DHT11 -> Temp: {temp:.1f}°C, Hum: {hum:.1f}%")
             else:
                 print("Lectura inválida del DHT11")

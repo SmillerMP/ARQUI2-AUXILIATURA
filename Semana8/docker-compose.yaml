@@ -17,7 +17,7 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: arqui2-database  # contraseña de root
-      MYSQL_DATABASE: mqtt-sensores  # Crea la base de datos automáticamente
+      MYSQL_DATABASE: sensores  # Crea la base de datos automáticamente
       TZ: America/Guatemala # Zona horaria
     ports:
       - "3306:3306"  # Mapea el puerto 3306 del contenedor al puerto 3306 de la máquina local
