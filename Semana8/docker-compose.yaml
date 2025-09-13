@@ -12,6 +12,8 @@ services:
     
     stdin_open: true
     tty: true
+    networks:
+      - arqui2
 
   database:
     image: mysql:8.0
@@ -29,3 +31,21 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    networks:
+      - arqui2
+
+  consumer:
+    build:
+      context: ./PC/Consumer
+      dockerfile: Dockerfile
+    depends_on:
+      database:
+        condition: service_healthy
+      mosquitto:
+        condition: service_started
+    networks:
+      - arqui2
+
+networks:
+  arqui2:
+    driver: bridge
