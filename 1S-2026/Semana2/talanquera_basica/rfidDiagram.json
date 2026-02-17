@@ -1,0 +1,61 @@
+{
+    "version": 1,
+    "author": "Anonymous maker",
+    "editor": "wokwi",
+    "parts": [
+      { "type": "wokwi-arduino-uno", "id": "uno", "top": 0.6, "left": -10.2, "attrs": {} },
+      {
+        "type": "wokwi-pushbutton",
+        "id": "btn1",
+        "top": -89.8,
+        "left": 28.8,
+        "attrs": { "color": "green", "xray": "1" }
+      },
+      {
+        "type": "wokwi-pushbutton",
+        "id": "btn2",
+        "top": -89.8,
+        "left": 278.4,
+        "attrs": { "color": "red", "xray": "1" }
+      },
+      {
+        "type": "wokwi-lcd1602",
+        "id": "lcd1",
+        "top": 217.6,
+        "left": 274.4,
+        "attrs": { "pins": "i2c" }
+      },
+      { "type": "board-mfrc522", "id": "rfid1", "top": 6.95, "left": 339.44, "attrs": {} },
+      { "type": "wokwi-servo", "id": "servo1", "top": 247.6, "left": -57.6, "attrs": {} },
+      {
+        "type": "wokwi-pushbutton",
+        "id": "btn3",
+        "top": -137.8,
+        "left": 28.8,
+        "attrs": { "color": "yellow", "xray": "1" }
+      }
+    ],
+    "connections": [
+      [ "btn2:2.l", "uno:2", "green", [ "h0" ] ],
+      [ "btn1:2.r", "uno:3", "green", [ "h67.4", "v0.2", "h67.2" ] ],
+      [ "btn1:1.r", "uno:GND.1", "black", [ "v0", "h29" ] ],
+      [ "btn2:1.l", "uno:GND.2", "black", [ "h0" ] ],
+      [ "lcd1:GND", "uno:GND.3", "black", [ "h0" ] ],
+      [ "lcd1:VCC", "uno:5V", "red", [ "h0" ] ],
+      [ "lcd1:SDA", "uno:A4", "green", [ "h0" ] ],
+      [ "lcd1:SCL", "uno:A5", "green", [ "h0" ] ],
+      [ "rfid1:RST", "uno:8", "blue", [ "h0" ] ],
+      [ "rfid1:SDA", "uno:10", "gold", [ "h0" ] ],
+      [ "rfid1:3.3V", "uno:3.3V", "red", [ "h0" ] ],
+      [ "rfid1:GND", "uno:GND.1", "black", [ "h0" ] ],
+      [ "servo1:GND", "uno:GND.3", "black", [ "h0" ] ],
+      [ "servo1:V+", "uno:5V", "red", [ "h0" ] ],
+      [ "servo1:PWM", "uno:9", "orange", [ "h0" ] ],
+      [ "rfid1:SCK", "uno:13", "violet", [ "h0" ] ],
+      [ "rfid1:MOSI", "uno:11", "limegreen", [ "h-211.2", "v-57.6" ] ],
+      [ "rfid1:MISO", "uno:12", "cyan", [ "h0" ] ],
+      [ "btn3:2.r", "uno:4", "green", [ "h0" ] ],
+      [ "btn3:1.r", "uno:GND.1", "black", [ "v0", "h19.4" ] ]
+    ],
+    "dependencies": {}
+  }
