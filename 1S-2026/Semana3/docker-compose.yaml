@@ -1,0 +1,29 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./PC/mosquittoData/config:/mosquitto/config
+      - ./PC/mosquittoData/data:/mosquitto/data
+      - ./PC/mosquittoData/log:/mosquitto/log
+    stdin_open: true
+    tty: true
+    networks:
+      - mqtt-network
+
+  frontend:
+    build: ./PC/Frontend
+    container_name: mqtt-frontend
+    ports:
+      - 8080:80
+    depends_on:
+      - mosquitto
+    networks:
+      - mqtt-network
+
+networks:
+  mqtt-network:
+    driver: bridge
