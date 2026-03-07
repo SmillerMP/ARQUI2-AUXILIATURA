@@ -63,6 +63,7 @@ services:
       mongodb:
         condition: service_healthy
     environment:
+      - TZ=America/Guatemala 
       - BROKER=mosquitto
       - PORT=1883
       - MQTT_USER=${MQTT_USER}
