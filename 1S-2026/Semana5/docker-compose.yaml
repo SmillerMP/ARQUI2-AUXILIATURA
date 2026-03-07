@@ -1,0 +1,86 @@
+services:
+  mosquitto:
+    build: ./Mosquitto
+    container_name: mosquitto-broker
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+      - mosquitto-config:/mosquitto/config
+    environment:
+      - MQTT_USER=${MQTT_USER}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-u", "${MQTT_USER}", "-P", "${MQTT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mqtt-network
+
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb-server
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${DB_NAME}
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mqtt-network
+
+  publisher:
+    build: ./Publisher
+    image: ${REGISTRY_USER:-smillermp}/arqui2-publisher-mqtt:${IMAGE_TAG:-1.0.0}
+    container_name: publisher-service
+    depends_on:
+      mosquitto:
+        condition: service_healthy
+    environment:
+      - BROKER=mosquitto
+      - PORT=1883
+      - USERNAME=${MQTT_USER}
+      - PASSWORD=${MQTT_PASSWORD}
+    networks:
+      - mqtt-network
+    restart: unless-stopped
+
+  consumer:
+    build: ./Consumer
+    image: ${REGISTRY_USER:-smillermp}/arqui2-consumer-mqtt:${IMAGE_TAG:-1.0.0}
+    container_name: consumer-service
+    depends_on:
+      mosquitto:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    environment:
+      - BROKER=mosquitto
+      - PORT=1883
+      - MQTT_USER=${MQTT_USER}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    networks:
+      - mqtt-network
+    restart: unless-stopped
+
+volumes:
+  mosquitto-data:
+  mosquitto-log:
+  mosquitto-config:
+
+networks:
+  mqtt-network:
+    driver: bridge
