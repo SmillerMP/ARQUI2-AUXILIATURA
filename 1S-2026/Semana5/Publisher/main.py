@@ -9,8 +9,8 @@ import os
 BROKER = os.getenv("BROKER", "localhost")
 PORT = int(os.getenv("PORT", "1883"))
 TOPIC_GAS = "parqueo/gas"
-USERNAME = os.getenv("MQTT_USER", "pro-auxes")
-PASSWORD = os.getenv("MQTT_PASSWORD", "arqui2")
+MQTT_USER = os.getenv("MQTT_USER", "")
+MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "")
 
 
 def on_connect(client, userdata, flags, reasonCode, properties=None):
@@ -39,7 +39,7 @@ def publicar_datos_parqueo():
 
 # Crear conexión MQTT
 client = Client(client_id="publisher-random", callback_api_version=CallbackAPIVersion.VERSION2)
-client.username_pw_set(USERNAME, PASSWORD)
+client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
 
 client.on_connect = on_connect
 

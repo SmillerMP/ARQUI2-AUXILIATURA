@@ -7,16 +7,16 @@ import paho.mqtt.client as mqtt
 # Configuración MongoDB (soporta variables de entorno para Docker)
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = int(os.getenv("DB_PORT", "27017"))
-DB_USER = os.getenv("DB_USER", "root")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "arqui2-nosql")
-DB_NAME = os.getenv("DB_NAME", "sensores")
+DB_USER = os.getenv("DB_USER", "")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "")
+DB_NAME = os.getenv("DB_NAME", "")
 
 # Configuración del broker MQTT (soporta variables de entorno para Docker)
 BROKER = os.getenv("BROKER", "localhost")
 PORT = int(os.getenv("PORT", "1883"))
 TOPICS = ["parqueo/gas", "parqueo/espacio/#"]
-MQTT_USER = os.getenv("MQTT_USER", "pro-auxes")
-MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "arqui2")
+MQTT_USER = os.getenv("MQTT_USER", "")
+MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "")
 
 
 # Conexión a MongoDB

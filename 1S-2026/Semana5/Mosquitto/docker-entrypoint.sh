@@ -2,8 +2,8 @@
 set -e
 
 # Configuración del usuario y contraseña
-MQTT_USER=${MQTT_USER:-pro-auxes}
-MQTT_PASSWORD=${MQTT_PASSWORD:-arqui2}
+MQTT_USER=${MQTT_USER}
+MQTT_PASSWORD=${MQTT_PASSWORD}
 PWFILE=/mosquitto/config/pwfile
 
 # Crear el archivo de contraseñas si no existe o está vacío

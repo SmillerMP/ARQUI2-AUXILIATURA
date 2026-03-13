@@ -47,8 +47,8 @@ services:
     environment:
       - BROKER=mosquitto
       - PORT=1883
-      - USERNAME=${MQTT_USER}
-      - PASSWORD=${MQTT_PASSWORD}
+      - MQTT_USER=${MQTT_USER}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
     networks:
       - mqtt-network
     restart: unless-stopped
