@@ -221,7 +221,7 @@ function drawParkingLayout(x, y, w, h) {
   noStroke();
   fill("#e2e8f0");
   textSize(18);
-  text("Estado del parqueo", x, y - 8);
+  text("Estado del parqueo", x, y - 12);
 
   const laneTop = y + 20;
   const laneHeight = h - 20;
