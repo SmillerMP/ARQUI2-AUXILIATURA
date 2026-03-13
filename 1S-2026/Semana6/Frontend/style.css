@@ -1,0 +1,161 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.layout {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+}
+
+.panel {
+  padding: 20px;
+  border-right: 1px solid #1e293b;
+  background: #111827;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  margin: 8px 0 18px;
+  color: #94a3b8;
+  font-size: 0.92rem;
+}
+
+.status-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.status-item {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 10px;
+  background: #0b1220;
+}
+
+.label {
+  display: block;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.compact {
+  margin-top: 8px;
+}
+
+.controls {
+  margin-top: 14px;
+}
+
+.controls h2 {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+.controls-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 8px;
+  background: #0b1220;
+}
+
+.control-label {
+  font-size: 0.82rem;
+  color: #e2e8f0;
+}
+
+.control-label small {
+  color: #94a3b8;
+}
+
+.control-btn {
+  border: none;
+  border-radius: 7px;
+  padding: 7px 9px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.control-btn.disable {
+  background: #dc2626;
+  color: #fff;
+}
+
+.control-btn.enable {
+  background: #16a34a;
+  color: #fff;
+}
+
+.control-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hint {
+  margin-top: 16px;
+  color: #94a3b8;
+  font-size: 0.82rem;
+}
+
+.canvas-panel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 16px;
+}
+
+#canvasContainer {
+  width: min(100%, 1100px);
+  min-height: 620px;
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #020617;
+}
+
+#canvasContainer canvas {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    border-right: none;
+    border-bottom: 1px solid #1e293b;
+  }
+
+  #canvasContainer {
+    min-height: 500px;
+  }
+}

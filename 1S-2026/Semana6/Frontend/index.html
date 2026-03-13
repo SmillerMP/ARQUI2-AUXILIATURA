@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parqueo en tiempo real</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel">
+        <h1>Simulador de Parqueo</h1>
+        
+        <div class="status-item compact">
+          <span class="label">Conexión MQTT</span>
+          <strong id="brokerInfo">--</strong>
+        </div>
+
+        <div class="status-grid">
+          <div class="status-item">
+            <span class="label">Estado</span>
+            <strong id="connState">Desconectado</strong>
+          </div>
+          <div class="status-item">
+            <span class="label">Espacios libres</span>
+            <strong id="freeCount">0 / 5</strong>
+          </div>
+          <div class="status-item">
+            <span class="label">Último gas</span>
+            <strong id="gasValue">-- ppm</strong>
+          </div>
+        </div>
+
+        <div class="controls">
+          <h2>Control de parqueos</h2>
+          <div id="parkingControls" class="controls-grid"></div>
+        </div>
+
+        <p class="hint">Suscripciones: <code>parqueo/espacio/#</code> y <code>parqueo/gas</code></p>
+      </section>
+
+      <section class="canvas-panel">
+        <div id="canvasContainer"></div>
+      </section>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

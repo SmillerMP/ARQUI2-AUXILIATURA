@@ -1,0 +1,20 @@
+# Variables de entorno (NUNCA versionar credenciales)
+.env
+
+# Mosquitto data y logs generados
+Mosquitto/data/
+Mosquitto/log/
+Mosquitto/config/pwfile
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
