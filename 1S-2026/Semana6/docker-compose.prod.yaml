@@ -1,0 +1,68 @@
+services:
+  mosquitto:
+    image: ${REGISTRY_USER:-smillermp}/arqui2-mosquitto-broker:${IMAGE_TAG:-latest}
+    container_name: mosquitto-broker
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+      - mosquitto-config:/mosquitto/config
+    environment:
+      - MQTT_USER=${MQTT_USER}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+    networks:
+      - mqtt-network
+
+  publisher:
+    image: ${REGISTRY_USER:-smillermp}/arqui2-publisher-mqtt:${IMAGE_TAG:-latest}
+    container_name: publisher-service
+    environment:
+      - BROKER=${BROKER}
+      - PORT=${PORT}
+      - MQTT_USER=${MQTT_USER}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+    networks:
+      - mqtt-network
+    restart: unless-stopped
+
+  consumer:
+    image: ${REGISTRY_USER:-smillermp}/arqui2-consumer-mqtt:${IMAGE_TAG:-latest}
+    container_name: consumer-service
+    environment:
+      - TZ=America/Guatemala 
+      - BROKER=${BROKER}
+      - PORT=${PORT}
+      - MQTT_USER=${MQTT_USER}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    networks:
+      - mqtt-network
+    restart: unless-stopped
+
+  frontend:
+    image: ${REGISTRY_USER:-smillermp}/arqui2-frontend:${IMAGE_TAG:-latest}
+    container_name: frontend-parqueo
+    ports:
+      - "8080:80"
+    environment:
+      - MQTT_BROKER_URL=${MQTT_BROKER_URL:-localhost:9001}
+      - MQTT_USER=${MQTT_USER}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+    networks:
+      - mqtt-network
+    restart: unless-stopped
+
+volumes:
+  mosquitto-data:
+  mosquitto-log:
+  mosquitto-config:
+
+networks:
+  mqtt-network:
+    driver: bridge

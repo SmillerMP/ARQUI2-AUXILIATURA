@@ -88,7 +88,7 @@ services:
     ports:
       - "8080:80"
     environment:
-      - MQTT_BROKER_URL=${MQTT_BROKER_URL:-/mqtt}
+      - MQTT_BROKER_URL=${MQTT_BROKER_URL:-localhost:9001}
       - MQTT_USER=${MQTT_USER}
       - MQTT_PASSWORD=${MQTT_PASSWORD}
     networks:

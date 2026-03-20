@@ -13,3 +13,5 @@ existe el archivo [.env.example](.env.example) que es una copia de como deberia 
 - `docker compose build`
 - `docker compose up`
 - `docekr compose push`
+
+

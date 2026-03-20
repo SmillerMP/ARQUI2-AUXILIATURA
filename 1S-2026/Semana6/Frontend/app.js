@@ -13,7 +13,7 @@ const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
 function normalizeBrokerUrl(rawUrl) {
   const value = (rawUrl || "").trim();
   if (!value) {
-    return `${wsProtocol}://${window.location.host}/mqtt`;
+    return `${wsProtocol}://${window.location.hostname}:9001`;
   }
 
   if (value.startsWith("ws://") || value.startsWith("wss://")) {
